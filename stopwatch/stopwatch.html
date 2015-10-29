@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#output{
+				width:120px;
+				height:25px;
+				background-color:#CCC;
+				border:1px solid #999;
+			}
+			
+			button{
+			}
+			
+			input[type="image"]{
+				outline:none;
+			}
+		
+		</style>
+		
+		<script>
+			var time= 0;
+			var running= 0;
+			
+			<!-- the number of milliseconds used per tick of the stopwatch -->
+			var timeUnit= timeArray.name[DECISECONDS];
+			
+			<!-- the number that time will be divided by to help get other units of time -->
+			var timeDenom= 1000/timeUnit;
+			
+			var MILLISECONDS= {name: "millis", unitsPerSecond: 1000};
+			var CENTISECONDS= {name: "cents", unitsPerSecond: 100};
+			var DECISECONDS= {name: "decs", unitsPerSecond: 10};
+			var SECONDS= {name: "secs", unitsPerSecond: 1};
+			
+			var timeArray= [MILLISECONDS, CENTISECONDS, DECISECONDS, SECONDS];
+			
+			
+			
+			function startPause(){
+				if(running == 0){
+					running= 1;
+					//document.getElementById("startpause").innerHTML = "pause";
+					document.getElementById("startpause").src= "res/pause_circle_button_32.png";
+					increment();
+					
+				}
+				else{
+					running= 0;
+					document.getElementById("startpause").src= "res/play_circle_button_32.png";
+					document.getElementById("startpause").innerHTML = "start";
+				}
+			}
+			
+			function reset(){
+				running= 0;
+				time= 0;
+				document.getElementById("startpause").innerHTML= "start";
+				document.getElementById("output").innerHTML= "00:00:00";
+			}
+			
+			function increment(){
+				if(running == 1){
+					setTimeout(function(){
+						time++; 
+						
+						var secs= getSecs(time);
+						var mins= getMins(time);
+						var hours= getHours(time);
+						
+						document.getElementById("output").innerHTML= hours + ":" + mins + ":" + secs;
+						increment();
+					}, 1000);
+				}
+			}
+			
+			function tickTock(){
+			}
+			
+			function getSecs(t){
+				var secs= time;
+				if(secs > 59){
+					secs= secs%60;
+				}
+				secs= addZeroes(secs);
+				return secs;
+			}
+			
+			function getMins(t){
+				var mins= Math.floor(t/60);
+				if(mins > 59){
+					mins= mins%60;
+				}
+				mins= addZeroes(mins);
+				return mins;
+			}
+			
+			//<!-- should i have the getHours function dependent on getSecs and getMins? -->
+			function getHours(t){
+				var hours= Math.floor(t/60/60);
+				
+				//<!-- use when days are displayed too -->
+				//if(hours > 23){
+				//	hours= hours%24;
+				//}
+				
+				
+				hours= addZeroes(hours);
+				return hours;
+			}
+
+			function addZeroes(t){
+				if(t < 10){
+					t= "0"+ t;
+				}
+				return t;
+			}
+			
+		</script>
+	</head>
+	<body>
+		<p>Stopwatch</p>
+		<p>hr:min:sec</p>
+		<p id="output">00:00:00</p>
+		<div id="controls">
+			<input id="startpause" type="image" src="res/play_circle_button_32.png" onclick="startPause()" alt="start/pause button"/>
+			<input id="reset" type="image" src="res/stop_circle_button_32.png" onclick="reset()" alt="reset button"/>
+			
+		</div>
+	</body>
+	
+	
+</html>
