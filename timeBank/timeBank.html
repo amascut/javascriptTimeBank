@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#output{
+				width:120px;
+				height:25px;
+				background-color:#CCC;
+				border:1px solid #999;
+			}
+
+			input[type="image"]{
+				outline:none;
+			}
+		</style>
+
+		<script>
+			var time= 0;
+			var running= 0;
+			var borrowedTime= 0;
+			var intervalVar;
+
+			// var MILLISECONDS= {name: "millis", unitsPerSecond:1000};
+			// var CENTISECONDS= {name: "cents", unitsPerSecond:100};
+			// var DECISECONDS= {name: "decs", unitsPerSecond:10};
+			// var SECONDS= {name: "secs", unitsPerSecond:1};
+			//var timeArray= [MILLISECONDS, CENTISECONDS, DECISECONDS, SECONDS];
+
+			// the number of milliseconds used per tick of the stopwatch
+			// var timeUnit= MILLISECONDS.unitsPerSecond;
+			// var millisecsPerTick= 1000/timeUnit;
+			//
+			var timeUnit= 1;
+			var millisecsPerTick= 1000;
+
+			//main stopwatch function; need to see if setInterval will run from here
+			function startPauseStopwatch(){
+				if(running == 0){
+					running= 1;
+					document.getElementById("startpause").src= "res/pause_circle_button_32.png";
+					intervalVar= setInterval(function(){ stopwatch() }, millisecsPerTick);
+				}
+				else{
+					clearInterval(intervalVar);
+					running= 0;
+					document.getElementById("startpause").src= "res/play_circle_button_32.png";
+				}
+			}
+
+
+
+			// function startPause(){
+			// 	if(running == 0){
+			// 		running= 1;
+			// 		document.getElementById("startpause").innerHTML = "pause";
+			//
+			//
+			// 	}
+			// 	else{
+			// 		running= 0;
+			// 		document.getElementById("startpause").innerHTML = "start";
+			// 	}
+			// }
+
+			function reset(){
+				running= 0;
+				time= 0;
+				document.getElementById("startpause").src= "res/play_circle_button_32.png";
+				clearInterval();
+			}
+
+			function stopwatch(){
+				time++;
+
+				//var days= Math.floor(time/10/60/60/24);
+				var hours= getHours(time);
+				var mins= getMinutes(time);
+				var secs= getSeconds(time);
+				//var tenths= time %10;
+
+				//window.alert(time);
+
+				document.getElementById("output").innerHTML= hours + ":" + mins + ":" + secs;
+			}
+
+			// function saveTime(){
+			// 	borrowedTime= time;
+			//
+			//
+			// 	var days= Math.floor(time/10/60/60/24);
+			//
+			// 		var hours= Math.floor(time/10/60/60);
+			//
+			// 		var mins= Math.floor(time/10/60);
+			//
+			// 		var secs= getSeconds(time);
+			//
+			// 		var tenths= time %10;
+			//
+			// 	document.getElementById("savedtime").innerHTML= days + ":" + hours + ":" + mins + ":" + secs;
+			//
+			// 	time= 0;
+			// }
+
+			function getHours(time){
+				var hours= Math.floor(time/timeUnit/60/60);
+
+				return hours;
+			}
+
+			function getMinutes(time){
+				var minutes= Math.floor(time/timeUnit/60);
+				if (minutes > 59){
+					minutes= minutes % 60;
+				}
+				minutes= addZeroes(minutes);
+				return minutes;
+			}
+
+			function getSeconds(time){
+				seconds= Math.floor(time/timeUnit);
+				if(seconds > 59){
+					seconds= seconds % 60;
+				}
+				seconds= addZeroes(seconds);
+				return seconds;
+			}
+
+			function addZeroes(time){
+				if(time < 10){
+					time= "0"+ time;
+				}
+				return time;
+			}
+
+			function setTimeManually(){
+			}
+
+		</script>
+
+		<body>
+			<p>Stopwatch</p>
+			<p>hr:min:sec</p>
+			<p id="output">0:00:00</p>
+			<div id="controls">
+				<input id="startpause" type="image" src="res/play_circle_button_32.png" onclick="startPauseStopwatch()" alt="start/pause button"/>
+				<input id="reset" type="image" src="res/stop_circle_button_32.png" onclick="reset()" alt="reset button"/>
+
+			</div>
+		</body>
+
+
+		</html>
