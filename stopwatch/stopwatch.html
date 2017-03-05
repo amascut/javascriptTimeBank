@@ -22,22 +22,26 @@
 			var time= 0;
 			var running= 0;
 			
-			<!-- the number of milliseconds used per tick of the stopwatch -->
-			var timeUnit= timeArray.name[DECISECONDS];
 			
-			<!-- the number that time will be divided by to help get other units of time -->
-			var timeDenom= 1000/timeUnit;
-			
-			var MILLISECONDS= {name: "millis", unitsPerSecond: 1000};
-			var CENTISECONDS= {name: "cents", unitsPerSecond: 100};
-			var DECISECONDS= {name: "decs", unitsPerSecond: 10};
-			var SECONDS= {name: "secs", unitsPerSecond: 1};
+			var MILLISECONDS= {name: "millis", unitsPerSecond:1000};
+			var CENTISECONDS= {name: "cents", unitsPerSecond:100};
+			var DECISECONDS= {name: "decs", unitsPerSecond:10};
+			var SECONDS= {name: "secs", unitsPerSecond:1};
 			
 			var timeArray= [MILLISECONDS, CENTISECONDS, DECISECONDS, SECONDS];
 			
+			<!-- the number of milliseconds used per tick of the stopwatch -->
+			<!-- var timeUnit= MILLISECONDS.unitsPerSecond; -->
+			<!-- var millisecsPerTick= 1000/timeUnit; -->
 			
+			var timeUnit= 1000;
+			var millisecsPerTick= 100;
 			
 			function startPause(){
+				increment();
+			}
+			
+			function startPause2(){
 				if(running == 0){
 					running= 1;
 					//document.getElementById("startpause").innerHTML = "pause";
@@ -52,33 +56,32 @@
 				}
 			}
 			
-			function reset(){
+			function reset2(){
 				running= 0;
 				time= 0;
 				document.getElementById("startpause").innerHTML= "start";
 				document.getElementById("output").innerHTML= "00:00:00";
 			}
 			
-			function increment(){
-				if(running == 1){
-					setTimeout(function(){
-						time++; 
-						
-						var secs= getSecs(time);
-						var mins= getMins(time);
-						var hours= getHours(time);
-						
-						document.getElementById("output").innerHTML= hours + ":" + mins + ":" + secs;
-						increment();
-					}, 1000);
-				}
+			function reset(){
+				clearInterval();
 			}
 			
-			function tickTock(){
+			
+			function increment(){
+				setInterval(function(){
+					time++;
+					
+					
+						
+					document.getElementById("output").innerHTML= time;
+					
+				}, 1000);
 			}
+			
 			
 			function getSecs(t){
-				var secs= time;
+				var secs= Math.floor(t/1000);
 				if(secs > 59){
 					secs= secs%60;
 				}
@@ -87,7 +90,7 @@
 			}
 			
 			function getMins(t){
-				var mins= Math.floor(t/60);
+				var mins= Math.floor(t/timeUnit/60);
 				if(mins > 59){
 					mins= mins%60;
 				}
@@ -97,7 +100,7 @@
 			
 			//<!-- should i have the getHours function dependent on getSecs and getMins? -->
 			function getHours(t){
-				var hours= Math.floor(t/60/60);
+				var hours= Math.floor(t/timeUnit/60/60);
 				
 				//<!-- use when days are displayed too -->
 				//if(hours > 23){
@@ -119,6 +122,7 @@
 		</script>
 	</head>
 	<body>
+		<!-- this is a test edit to be pushed to the test branch and only the test branch asdf-->
 		<p>Stopwatch</p>
 		<p>hr:min:sec</p>
 		<p id="output">00:00:00</p>
