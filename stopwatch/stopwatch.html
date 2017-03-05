@@ -17,10 +17,11 @@
 			}
 		
 		</style>
-		
+		<script type="text/javascript" src="jquery-3.1.1.js"></script>
+
 		<script>
 			var time= 0;
-			var running= 0;
+			var running= false;
 			
 			
 			var MILLISECONDS= {name: "millis", unitsPerSecond:1000};
@@ -42,15 +43,15 @@
 			}
 			
 			function startPause2(){
-				if(running == 0){
-					running= 1;
+				if(running == false){
+					running= true;
 					//document.getElementById("startpause").innerHTML = "pause";
 					document.getElementById("startpause").src= "res/pause_circle_button_32.png";
 					increment();
 					
 				}
 				else{
-					running= 0;
+					running= false;
 					document.getElementById("startpause").src= "res/play_circle_button_32.png";
 					document.getElementById("startpause").innerHTML = "start";
 				}
@@ -123,12 +124,14 @@
 	</head>
 	<body>
 		<!-- this is a test edit to be pushed to the test branch and only the test branch asdf-->
-		<p>Stopwatch</p>
+    <p>Stopwatch</p>
 		<p>hr:min:sec</p>
 		<p id="output">00:00:00</p>
 		<div id="controls">
-			<input id="startpause" type="image" src="res/play_circle_button_32.png" onclick="startPause()" alt="start/pause button"/>
-			<input id="reset" type="image" src="res/stop_circle_button_32.png" onclick="reset()" alt="reset button"/>
+      <button onclick="startPause()">Start/Pause</button>
+      <button onclick="reset()">Reset</button>
+			<!--<input id="startpause" type="image" src="res/play_circle_button_32.png" onclick="startPause()" alt="start/pause button"/>-->
+			<!--<input id="reset" type="image" src="res/stop_circle_button_32.png" onclick="reset()" alt="reset button"/>-->
 			
 		</div>
 	</body>

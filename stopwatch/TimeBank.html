@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+/**
+ * Created by ms on 3/4/2017.
+ */
+<html>
+  <head>
+    <script type="text/javascript" src="jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+      let TimeBank = new Object();
+      TimeBank.saveTime = {};
+      TimeBank.spendTime = {};
+      TimeBank.clearTime = {};
+      TimeBank.updateTimeDisplay = {};
+      TimeBank.timeSaved = 0; //milliseconds
+      TimeBank.isSpendingTime = false;
+      
+      let StopWatch = new Object();
+      StopWatch.start = {};
+      StopWatch.pause = {};
+      StopWatch.clear = {};
+
+      let Timer = new Object();
+      Timer.start = {};
+      Timer.pause = {};
+      Timer.clear = {};
+
+
+    </script>
+  </head>
+<body>
+<p>Time Bank</p>
+<p id="output">00:00:00</p>
+<div id="controls">
+  <button onclick="startPause()">Start/Pause</button>
+  <button onclick="reset()">Reset</button>
+</div>
+</body>
+</html>
