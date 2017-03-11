@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-/**
+<!--/*
  * Created by ms on 3/4/2017.
- */
+ */ -->
 <html>
   <head>
     <script type="text/javascript" src="jquery-3.1.1.js"></script>
@@ -11,13 +11,33 @@
       TimeBank.spendTime = {};
       TimeBank.clearTime = {};
       TimeBank.updateTimeDisplay = {};
-      TimeBank.timeSaved = 0; //milliseconds
+      TimeBank.timeSavedInMs = 0; //milliseconds
       TimeBank.isSpendingTime = false;
-      
-      let StopWatch = new Object();
-      StopWatch.start = {};
-      StopWatch.pause = {};
-      StopWatch.clear = {};
+
+      let Stopwatch = new Object();
+      Stopwatch.timeInMs = 0;
+      Stopwatch.isRunning = false;
+      Stopwatch.startPause = function() {
+        if (Stopwatch.isRunning === false) {
+          Stopwatch.start();
+        } else {
+          Stopwatch.pause();
+        }
+      };
+      Stopwatch.start = function() {
+          Stopwatch.isRunning = true;
+
+        Stopwatch.startTimeInMs = Date.now();
+
+          while (Stopwatch.isRunning === true) {
+
+            console.log(`Stopwatch.startTimeInMs is ${Stopwatch.startTimeInMs}`);
+          }
+      };
+      Stopwatch.pause = function() {
+        Stopwatch.isRunning = false;
+      };
+      Stopwatch.clear = {};
 
       let Timer = new Object();
       Timer.start = {};
@@ -28,9 +48,15 @@
     </script>
   </head>
 <body>
+<p>Stopwatch</p>
+<p id="sw-output">00:00:00</p>
+<div id="sw-controls">
+  <button onclick="Stopwatch.start()">Start</button>
+  <button onclick="reset()">Reset</button>
+</div>
 <p>Time Bank</p>
-<p id="output">00:00:00</p>
-<div id="controls">
+<p id="tb-output">00:00:00</p>
+<div id="tb-controls">
   <button onclick="startPause()">Start/Pause</button>
   <button onclick="reset()">Reset</button>
 </div>
