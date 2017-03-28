@@ -10,10 +10,12 @@
     function flashText() {
       var oElem = document.getElementById('my_box');
       var pElem = document.getElementById('gender');
+      var date = Date.now();
+      var clockElem = document.getElementById('clock');
       oElem.style.color = oElem.style.color == 'green' ? 'red' : 'green';
       oElem.innerHTML = oElem.innerHTML == 'lotsa spaghetti' ? 'an excess of ravioli' : 'lotsa spaghetti';
       gender.innerHTML = gender.innerHTML == 'She' ? 'He' : 'She';
-
+      clockElem.innerHTML = date;
     }
 
     function stopTextColor() {
@@ -31,12 +33,13 @@
 
   </script>
 </head>
-<body>
+<body onload="nIntervId();">
 <span id="my_box_wrapper"><span id="gender">She</span> gave me
   <span id="my_box">
   <p>lotsa spaghetti</p>
 </span>
 </span>
+<div id="clock">00:00</div>
 
 <div><button onclick="stopTextColor()">Stop</button></div>
 
