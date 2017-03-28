@@ -15,6 +15,8 @@
       TimeBank.isSpendingTime = false;
 
       let Stopwatch = new Object();
+      let startTime = new Date();
+
       Stopwatch.timeInMs = 0;
       Stopwatch.isRunning = false;
       Stopwatch.startPause = function() {
@@ -22,6 +24,15 @@
           Stopwatch.start();
         } else {
           Stopwatch.pause();
+        }
+
+        startTime = startTime.getUTCMilliseconds();
+        currentTime = startTime;
+
+        while (Stopwatch.isRunning === true) {
+          currentTime = currentTime.getUTCMilliseconds();
+          //select sw-controls DOM object and update time
+          $("div#sw-controls").html(`${currentTime}`);
         }
       };
       Stopwatch.start = function() {
@@ -40,7 +51,9 @@
       Stopwatch.clear = {};
 
       let Timer = new Object();
-      Timer.start = {};
+      Timer.start = {
+
+      };
       Timer.pause = {};
       Timer.clear = {};
 
